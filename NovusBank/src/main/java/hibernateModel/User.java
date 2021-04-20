@@ -35,7 +35,10 @@ public class User implements Serializable {
 
     @Column(name = "sort_code")
     private int sortCode;
-
+    
+    @Column(name = "balance")
+    private int balance;
+    
     public String getFirstName() {
         return firstName;
     }
@@ -90,5 +93,13 @@ public class User implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+    
+    public int getbalance() {
+        return balance;
+    }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
     }
 }

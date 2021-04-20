@@ -11,12 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import hibernateDao.UserDao;
+import hibernateModel.User;
 
 
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private UserDao loginDao;
+	public User user;
 
     public void init() {
         loginDao = new UserDao();
@@ -43,8 +45,14 @@ public class LoginController extends HttpServlet {
         String password = request.getParameter("password");
 
         if (loginDao.validate(email, password)) {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("login-success.jsp");
+            //RequestDispatcher dispatcher = request.getRequestDispatcher("login-success.jsp");
+            //dispatcher.forward(request, response);
+        	
+        	user = loginDao.getUser(email, password);
+        	request.setAttribute("user", user);
+        	RequestDispatcher dispatcher = request.getRequestDispatcher("profile.jsp");
             dispatcher.forward(request, response);
+        	
         } else {
             throw new Exception("Login not successful..");
         }
