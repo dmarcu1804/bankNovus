@@ -1,6 +1,8 @@
 package hibernateWeb;
 
 import java.io.IOException;
+import java.util.Date;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,7 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import hibernateDao.BankTransactionDao;
 import hibernateDao.UserDao;
+import hibernateModel.BankTransaction;
 import hibernateModel.User;
 
 @WebServlet("/register")
@@ -45,7 +49,31 @@ public class UserController extends HttpServlet{
         user.setPassword(password);
         user.setAccountNumber(Integer.parseInt(accountNumber));
         user.setSortCode(Integer.parseInt(sortCode));
+        
+        
+        
+        
+        /** For Testing the Transactions - Users relationship
+        User user2 = new User();
+        user2.setFirstName("John");
+        user2.setLastName("Smith");
+        user2.setEmail("g@gmail.com");
+        user2.setPassword("qwerty12");
+        user2.setAccountNumber(Integer.parseInt("12345"));
+        user2.setSortCode(Integer.parseInt("12345"));
+        
+        BankTransactionDao bankDao= new BankTransactionDao();
 
+        BankTransaction transaction = new BankTransaction();
+        transaction.setAmount(300);
+        transaction.setSender(user);
+        transaction.setReceiver(user2);
+        transaction.setDate(new Date());
+
+        
+        userDao.saveUser(user2);
+        bankDao.saveBankTransaction(transaction);
+        **/
         userDao.saveUser(user);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("register-success.jsp");
